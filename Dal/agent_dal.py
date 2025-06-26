@@ -1,5 +1,5 @@
 from mysql.connector import connect, Error
-from Module.agent import Agent, AgentStatus
+from models.agent import Agent, AgentStatus
 
 
 class AgentDAL:
@@ -121,11 +121,11 @@ class AgentDAL:
         finally:
             cursor.close()
 
-dal = AgentDAL()
-agent1 = dal.get_agent_by_id(20)
-print(agent1)
+# dal = AgentDAL()
+# agent1 = dal.get_agent_by_id(20)
+# print(agent1)
 
 
-# example usage of delete_agent_by_id
-dal.delete_agent_by_id(20)
-dal.get_agent_by_id(20)  # should return None or print "No agent found with ID 20"c
+# # example usage of delete_agent_by_id
+# dal.delete_agent_by_id(20)
+# dal.get_agent_by_id(20)  # should return None or print "No agent found with ID 20"c
