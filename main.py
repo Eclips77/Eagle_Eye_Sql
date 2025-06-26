@@ -1,6 +1,9 @@
-from manager.agent_manager import AgentManager  # או הנתיב שלך
+from Dal.agent_manager import AgentManager  
+from tools.validator import Validator
+from models.agent import Agent
+from Dal.agent_dal import AgentDAL
 
-manager = AgentManager()
+manager = AgentManager(AgentDAL())
 
 def menu():
     print("\nAgent Control Center")
@@ -18,27 +21,30 @@ def add_agent():
     code_name = input("Code name: ")
     real_name = input("Real name: ")
     location = input("Location: ")
-    status = input("Status (e.g., Active): ")
+    status = Validator.choose_status()
     missions = int(input("Missions completed: "))
     manager.add_agent(code_name, real_name, location, status, missions)
 
 def find_agent():
-    id = input("Agent ID to search: ")
+    id = int(input("Agent ID to search: "))
     manager.find_agent_by_id(id)
 
 def update_agent():
-    id = input("Agent ID to update: ")
+    id = int(input("Agent ID to update: "))
     code_name = input("New code name: ")
     real_name = input("New real name: ")
     location = input("New location: ")
-    status = input("New status: ")
+    status = Validator.choose_status()
     missions = int(input("New mission count: "))
     updated = Agent(code_name, real_name, location, status, missions)
     manager.update_agent(id, updated)
 
 def delete_agent():
-    id = input("Agent ID to delete: ")
-    manager.delete_agent(id)
+    id = int(input("Agent ID to delete: "))
+    try:
+        manager.delete_agent(id)
+    except Exception as e:
+        print(f"Error deleting agent: {e}")
 
 def main():
     while True:

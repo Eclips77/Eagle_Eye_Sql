@@ -16,11 +16,23 @@ class Agent:
         self.status = status
         self.mission_completed = mission_completed_n
 
+    @classmethod
+    def from_tuple(cls, row):
+        if len(row) != 6:
+            raise ValueError("Row must have exactly 6 elements")
+        return cls(
+            code_name=row[1],
+            real_name=row[2],
+            cur_location=row[3],
+            status=AgentStatus(row[4]),
+            mission_completed_n=row[5]
+        )
+
     def __str__(self):
         return (f"Agent {self.code_name} ({self.real_name})\n"
                 f"Location: {self.cur_location}\n"
                 f"Status: {self.status.value}\n"
-                f"Missions Completed: {self.mission_completed}")
+                f"Missions Completed: {self.mission_completed}\n")
 
 # agent = Agent("Shadow", "Yaakov B.A", "Tel Aviv", AgentStatus.ACTIVE, 7)
 # print(agent)
