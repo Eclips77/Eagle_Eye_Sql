@@ -1,5 +1,5 @@
 from mysql.connector import connect, Error
-from Module.agent import Agent, AgentStatus
+from models.agent import Agent, AgentStatus
 
 
 class AgentDAL:
@@ -78,7 +78,54 @@ class AgentDAL:
             print(f"Error retrieving agent with id {id}: {e}")
             return None
 
+    def update_agent_by_id(self, id, updated_agent):
+        if self.connection is None:
+            print("No database connection.")
+            return
 
-dal = AgentDAL()
-agent1 = dal.get_agent_by_id(20)
-print(agent1)
+        try:
+            cursor = self.connection.cursor()
+            sql = """
+            UPDATE agents
+            SET codeName = %s, realName = %s, location = %s, status = %s, missionCompleted = %s
+            WHERE id = %s
+            """
+            values = (
+                updated_agent.code_name,
+                updated_agent.real_name,
+                updated_agent.cur_location,
+                updated_agent.status.value,
+                updated_agent.mission_completed,
+                id
+            )
+            cursor.execute(sql, values)
+            self.connection.commit()
+            print(f"Agent with ID {id} updated successfully.")
+        except Error as e:
+            print(f"Error updating agent with id {id}: {e}")
+        finally:
+            cursor.close()
+
+    def delete_agent_by_id(self, id):
+        if self.connection is None:
+            print("No database connection.")
+            return
+
+        try:
+            cursor = self.connection.cursor()
+            cursor.execute("DELETE FROM agents WHERE id = %s", (id,))
+            self.connection.commit()
+            print(f"Agent with ID {id} deleted successfully.")
+        except Error as e:
+            print(f"Error deleting agent with id {id}: {e}")
+        finally:
+            cursor.close()
+
+# dal = AgentDAL()
+# agent1 = dal.get_agent_by_id(20)
+# print(agent1)
+
+
+# # example usage of delete_agent_by_id
+# dal.delete_agent_by_id(20)
+# dal.get_agent_by_id(20)  # should return None or print "No agent found with ID 20"c
