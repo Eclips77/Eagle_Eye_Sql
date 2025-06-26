@@ -20,7 +20,11 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
+<<<<<<< add_dal
         <entry key="$PROJECT_DIR$" value="add_dal" />
+=======
+        <entry key="$PROJECT_DIR$" value="master" />
+>>>>>>> master
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -52,7 +56,7 @@
     "Python.Agent.executor": "Run",
     "Python.agent_dal.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master"
+    "git-widget-placeholder": "add__dal"
   }
 }]]></component>
   <component name="SharedIndexes">
