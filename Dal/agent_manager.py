@@ -5,11 +5,10 @@ class AgentManager:
     def __init__(self, dal):
         self.dal = dal
 
-    def view_all_agents(self):
+    def get_all_agents(self):
         rows = self.dal.get_all_agents()
-        agents = [Agent.from_tuple(row) for row in rows]
-        for agent in agents:
-            print(agent)
+        return [Agent.from_tuple(row) for row in rows]
+
 
     def add_agent(self, code_name, real_name, location, status, missions):
         agent = Agent(code_name, real_name, location, status, missions)

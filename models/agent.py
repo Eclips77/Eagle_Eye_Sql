@@ -29,10 +29,13 @@ class Agent:
         )
 
     def __str__(self):
-        return (f"Agent {self.code_name} ({self.real_name})\n"
-                f"Location: {self.cur_location}\n"
-                f"Status: {self.status.value}\n"
-                f"Missions Completed: {self.mission_completed}\n")
+        return (f"Code Name: {self.code_name}\n"
+            f"Real Name: {self.real_name}\n"
+            f"Location: {self.cur_location}\n"
+            f"Status: {self.status.value}\n"
+            f"Missions Completed: {self.mission_completed}\n"
+            "-----------------------------")
+
 
 # agent = Agent("Shadow", "Yaakov B.A", "Tel Aviv", AgentStatus.ACTIVE, 7)
 # print(agent)
