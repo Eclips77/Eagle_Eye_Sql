@@ -37,5 +37,3 @@ class Agent:
             "-----------------------------")
 
 
-# agent = Agent("Shadow", "Yaakov B.A", "Tel Aviv", AgentStatus.ACTIVE, 7)
-# print(agent)

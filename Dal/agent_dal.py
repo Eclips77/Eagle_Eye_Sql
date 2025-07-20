@@ -19,16 +19,26 @@ class AgentDAL:
             return None
 
     def get_all_agents(self):
+        if self.connection is None:
+            print("No database connection.")
+            return []
+
         cursor = self.connection.cursor()
         try:
             cursor.execute("SELECT * FROM agents")
             rows = cursor.fetchall()
-            cursor.close()
             return rows
         except Exception as ex:
-            print(f"error in get agents {ex}")
+            print(f"Error retrieving agents: {ex}")
+            return []
+        finally:
+            cursor.close()
 
     def add_agent_to_db(self, agent):
+        if self.connection is None:
+            print("No database connection.")
+            return
+
         try:
             cursor = self.connection.cursor()
             sql = """
@@ -62,14 +72,13 @@ class AgentDAL:
             cursor.close()
 
             if row:
-                agent = Agent(
+                return Agent(
                     code_name=row[1],
                     real_name=row[2],
                     cur_location=row[3],
                     status=AgentStatus(row[4]),
                     mission_completed_n=row[5]
                 )
-                return agent
             else:
                 print(f"No agent found with ID {id}")
                 return None
@@ -120,12 +129,3 @@ class AgentDAL:
             print(f"Error deleting agent with id {id}: {e}")
         finally:
             cursor.close()
-
-# dal = AgentDAL()
-# agent1 = dal.get_agent_by_id(20)
-# print(agent1)
-
-
-# # example usage of delete_agent_by_id
-# dal.delete_agent_by_id(20)
-# dal.get_agent_by_id(20)  # should return None or print "No agent found with ID 20"c

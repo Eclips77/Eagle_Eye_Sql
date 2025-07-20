@@ -15,11 +15,7 @@ class AgentManager:
         self.dal.add_agent_to_db(agent)
 
     def find_agent_by_id(self, id):
-        row = self.dal.get_agent_by_id(id)
-        if row:
-            print(Agent.from_tuple(row))
-        else:
-            print("Agent not found.")
+        return self.dal.get_agent_by_id(id)
 
     def update_agent(self, id, updated_agent):
         self.dal.update_agent_by_id(id, updated_agent)
