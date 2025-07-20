@@ -77,7 +77,8 @@ class AgentDAL:
                     real_name=row[2],
                     cur_location=row[3],
                     status=AgentStatus(row[4]),
-                    mission_completed_n=row[5]
+                    mission_completed_n=row[5],
+                    id=row[0],
                 )
             else:
                 print(f"No agent found with ID {id}")

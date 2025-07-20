@@ -7,9 +7,10 @@ class AgentStatus(Enum):
     RETIRED = "Retired"
 
 class Agent:
-    def __init__(self, code_name, real_name, cur_location, status: AgentStatus, mission_completed_n):
+    def __init__(self, code_name, real_name, cur_location, status: AgentStatus, mission_completed_n, id=None):
         if not isinstance(status, AgentStatus):
             raise ValueError(f"Invalid status: {status}")
+        self.id = id
         self.code_name = code_name
         self.real_name = real_name
         self.cur_location = cur_location
@@ -21,6 +22,7 @@ class Agent:
         if len(row) != 6:
             raise ValueError("Row must have exactly 6 elements")
         return cls(
+            id=row[0],
             code_name=row[1],
             real_name=row[2],
             cur_location=row[3],
@@ -29,11 +31,15 @@ class Agent:
         )
 
     def __str__(self):
-        return (f"Code Name: {self.code_name}\n"
+        id_part = f"ID: {self.id}\n" if self.id is not None else ""
+        return (
+            f"{id_part}"
+            f"Code Name: {self.code_name}\n"
             f"Real Name: {self.real_name}\n"
             f"Location: {self.cur_location}\n"
             f"Status: {self.status.value}\n"
             f"Missions Completed: {self.mission_completed}\n"
-            "-----------------------------")
+            "-----------------------------"
+        )
 
 
